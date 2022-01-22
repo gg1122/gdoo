@@ -19,15 +19,24 @@ return [
             'model' => 'Gdoo\User\Models\Role::Dialog',
             'url' => 'user/role/dialog',
         ],
-        'position' => [
-            'name' => '职位',
-            'model' => 'Gdoo\User\Models\UserPosition::Dialog',
-            'url' => 'user/position/dialog',
+        'post' => [
+            'name' => '岗位',
+            'model' => 'Gdoo\User\Models\UserPost::Dialog',
+            'url' => 'user/post/dialog',
         ],
         'user' => [
             'name' => '用户',
             'model' => 'Gdoo\User\Models\User::Dialog',
             'url' => 'user/user/dialog',
+        ],
+    ],
+    'widgets' => [
+        'info_user_count' => [
+            'name' => '用户',
+            'type' => 2,
+            'url' => 'user/widget/userCount',
+            'more_url' => 'user/user/index',
+            'params' => ['permission' => 'dept2', 'date' => 'month'],
         ],
     ],
     "controllers" => [
@@ -117,7 +126,7 @@ return [
                 ]
             ]
         ],
-        "position" => [
+        "post" => [
             "name" => "用户职位",
             "actions" => [
                 "index" => [

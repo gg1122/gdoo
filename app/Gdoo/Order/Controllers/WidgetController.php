@@ -3,9 +3,9 @@
 use DB;
 use Request;
 use Auth;
-use Gdoo\Index\Services\InfoService;
 
 use Gdoo\Index\Controllers\DefaultController;
+use Gdoo\Index\Services\InfoService;
 
 class WidgetController extends DefaultController
 {
@@ -239,10 +239,12 @@ class WidgetController extends DefaultController
         $config = InfoService::getInfo('customer_order');
 
         $model = DB::table('customer_order')
+        ->leftJoin('customer','customer.id', '=', 'customer_order.customer_id')
         ->leftJoin('customer_order_data','customer_order_data.order_id', '=', 'customer_order.id')
         ->whereRaw('('.$config['sql'].')');
 
         $model2 = DB::table('customer_order')
+        ->leftJoin('customer','customer.id', '=', 'customer_order.customer_id')
         ->leftJoin('customer_order_data','customer_order_data.order_id', '=', 'customer_order.id')
         ->whereRaw('('.$config['sql2'].')');
 
@@ -267,11 +269,6 @@ class WidgetController extends DefaultController
             'count2' => $count2,
             'rate' => $rate,
         ];
-        
-        return $this->render([
-            'dates' => $config['dates'],
-            'info' => $config['info'],
-            'res' => $res,
-        ]);
+        return $this->json($res, true);
     }
 }
